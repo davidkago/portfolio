@@ -1,276 +1,328 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="David Kago connects business needs with technology to build clear, useful solutions.">
-  <title>David Kago — Product, Business, Technology</title>
-  <style>
-    :root {
-      --ink: #18221f;
-      --muted: #64716b;
-      --paper: #f8f8f4;
-      --card: #ffffff;
-      --line: #e1e6df;
-      --accent: #245e4b;
-      --accent-soft: #e8f0eb;
-      --max: 1080px;
-      --radius: 20px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; }
-    a:focus-visible, button:focus-visible { outline: 3px solid #76a995; outline-offset: 4px; }
-    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; gap: 20px; }
-    .brand { text-decoration: none; font-weight: 750; letter-spacing: -.04em; font-size: 1.08rem; }
-    nav { display: flex; gap: 26px; align-items: center; }
-    nav a { color: var(--muted); text-decoration: none; font-size: .92rem; }
-    nav a:hover { color: var(--accent); }
-    .hero { padding: clamp(62px, 10vw, 120px) 0 74px; max-width: 850px; }
-    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .14em; font-size: .76rem; font-weight: 750; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { font-size: clamp(2.7rem, 7vw, 5.8rem); letter-spacing: -.075em; line-height: .99; font-weight: 720; max-width: 850px; margin: 20px 0 24px; }
-    .hero-copy { max-width: 590px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.28rem); }
-    .guide { display: flex; align-items: center; gap: 12px; margin-top: 34px; font-weight: 700; text-decoration: none; width: fit-content; }
-    .guide .arrow { display: grid; place-items: center; border: 1px solid #cbd7ce; border-radius: 50%; width: 38px; height: 38px; transition: transform .2s, background .2s; }
-    .guide:hover .arrow { transform: translateY(3px); background: var(--accent-soft); }
-    section { scroll-margin-top: 28px; }
-    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -.055em; line-height: 1.1; margin-bottom: 8px; }
-    .section-intro { color: var(--muted); max-width: 500px; margin-bottom: 0; }
-    .paths { padding: 34px 0 90px; }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-    .path-card { display: flex; flex-direction: column; min-height: 205px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
-    .path-card:hover { border-color: #b5c9bb; transform: translateY(-3px); box-shadow: 0 12px 30px #17241b0a; }
-    .card-top { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: .78rem; }
-    .card-icon { width: 38px; height: 38px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); border-radius: 12px; font-size: 1.15rem; }
-    .path-card h3 { font-size: 1.45rem; letter-spacing: -.04em; margin: 22px 0 5px; }
-    .path-card p { color: var(--muted); margin-bottom: 18px; }
-    .card-link { margin-top: auto; color: var(--accent); font-weight: 700; font-size: .9rem; }
-    .personal { margin-top: 18px; display: flex; justify-content: space-between; align-items: center; gap: 24px; border: 1px solid var(--line); background: #f0f2ec; border-radius: var(--radius); padding: 25px 28px; }
-    .personal h3 { margin-bottom: 4px; font-size: 1.3rem; letter-spacing: -.035em; }
-    .personal p { margin: 0; color: var(--muted); }
-    .personal a { white-space: nowrap; color: var(--accent); font-weight: 750; text-decoration: none; }
-    .case-study { padding: 80px 0; background: #eef1eb; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .case-wrap { max-width: 850px; }
-    .case-meta { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: .82rem; margin-bottom: 22px; }
-    .case-study h2 { font-size: clamp(2.2rem, 5vw, 4rem); max-width: 720px; margin: 14px 0 18px; }
-    .case-lead { max-width: 670px; color: #4e5b54; font-size: 1.13rem; }
-    .case-blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 36px 0 52px; }
-    .case-stat { background: #fff; border: 1px solid var(--line); border-radius: 15px; padding: 19px; }
-    .case-stat strong { display: block; font-size: 1rem; margin-bottom: 6px; }
-    .case-stat span { color: var(--muted); font-size: .9rem; }
-    .case-content { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
-    .case-content h3 { font-size: 1.2rem; letter-spacing: -.03em; margin-bottom: 10px; }
-    .case-content p, .case-content li { color: #536057; }
-    .case-content ul { padding-left: 19px; }
-    .case-content li { margin: 0 0 12px; }
-    .case-note { margin-top: 28px; border-left: 3px solid #9ab7a5; padding: 4px 0 4px 15px; color: var(--muted); font-size: .9rem; }
-    .about { padding: 84px 0; }
-    .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: start; }
-    .about h2 { max-width: 390px; }
-    .about-copy { color: var(--muted); font-size: 1.05rem; }
-    .about-themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
-    .theme { padding: 18px; background: white; border: 1px solid var(--line); border-radius: 15px; }
-    .theme strong { display: block; margin-bottom: 7px; }
-    .theme span { color: var(--muted); font-size: .9rem; }
-    .contact { padding: 70px 0; background: #1d2c25; color: #f6f7f2; }
-    .contact-inner { display: flex; align-items: end; justify-content: space-between; gap: 30px; }
-    .contact h2 { max-width: 570px; font-size: clamp(2.2rem, 5vw, 4rem); }
-    .contact p { color: #c0cbc3; max-width: 470px; }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .contact-links a, .contact-links button { appearance: none; cursor: pointer; font: inherit; color: inherit; text-decoration: none; border: 1px solid #50645a; border-radius: 999px; padding: 10px 16px; font-size: .92rem; background: transparent; }
-    .contact-links a:hover, .contact-links button:hover { background: #31463b; }
-    .email-reveal { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
-    .email-reveal[hidden] { display: none; }
-    .email-address { font-weight: 650; overflow-wrap: anywhere; }
-    .copy-email { appearance: none; cursor: pointer; border: 1px solid #7e9688; border-radius: 999px; padding: 8px 13px; color: #f6f7f2; background: #31463b; font: inherit; font-size: .88rem; }
-    .copy-email:hover { background: #40594b; }
-    .copy-status { color: #c0cbc3; font-size: .85rem; margin: 0; }
-    footer { padding: 20px 0; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .82rem; }
-    .resume { font-weight: 700; color: var(--accent); }
-    @media (max-width: 700px) {
-      .wrap { width: min(100% - 28px, var(--max)); }
-      .topbar { padding: 18px 0; }
-      nav { gap: 15px; }
-      nav a { font-size: .85rem; }
-      .hero { padding-top: 68px; }
-      .grid, .case-content, .about-grid { grid-template-columns: 1fr; }
-      .path-card { min-height: 180px; }
-      .personal, .contact-inner { align-items: flex-start; flex-direction: column; }
-      .personal { padding: 22px; }
-      .case-blocks { grid-template-columns: 1fr; }
-      .case-study, .about { padding: 62px 0; }
-      .about-grid { gap: 18px; }
-      .about-themes { grid-template-columns: 1fr; }
-      footer { flex-direction: column; }
-    }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f6f2">
+<title>David Kago | Product & Technology</title>
+<meta name="description" content="David Kago connects business strategy, product thinking, and technology to deliver practical solutions and measurable outcomes.">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f6f6f2;--card:#fff;--ink:#171b19;--muted:#68716b;
+  --line:#dedfd9;--accent:#315c4b;--wash:#eaf0eb;
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111815;--card:#1a241f;--ink:#f1f3ee;--muted:#a4afa7;
+  --line:#344139;--accent:#a7cbb6;--wash:#26372d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.025em;transition:background .2s,color .2s;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(1060px,calc(100% - 44px));margin:auto}
+header{
+  height:72px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line);gap:18px
+}
+.brand{font-weight:700;font-size:14px;letter-spacing:-.04em}
+nav{display:flex;align-items:center;gap:22px;font-size:12px;color:var(--muted)}
+nav a:hover,.link:hover{color:var(--accent)}
+.theme{
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:30px;padding:8px 12px;cursor:pointer;font-size:12px
+}
+.hero{padding:86px 0 54px;max-width:850px}
+.kicker{font-size:10px;letter-spacing:.17em;font-weight:750;color:var(--accent)}
+h1{
+  font-size:clamp(44px,7.5vw,82px);line-height:.99;letter-spacing:-.078em;
+  font-weight:650;margin:23px 0
+}
+.intro{font-size:clamp(17px,2.1vw,21px);line-height:1.55;color:var(--muted);max-width:660px}
+.roles{font-size:12px;color:var(--muted);margin-top:22px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-block;padding:12px 17px;border-radius:30px;font-size:12px;font-weight:650}
+.solid{background:var(--ink);color:var(--bg)}
+.outline{border:1px solid var(--line)}
+.credentials{display:flex;gap:9px;flex-wrap:wrap;margin-top:35px}
+.cred{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:8px 11px;border-radius:6px}
+.proof{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  background:var(--line);margin:0 0 64px
+}
+.proof article{background:var(--card);padding:22px}
+.proof strong{display:block;font-size:clamp(27px,4vw,38px);letter-spacing:-.065em}
+.proof span{display:block;color:var(--muted);font-size:11px;line-height:1.45;margin-top:5px}
+section{padding:55px 0;border-top:1px solid var(--line)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}
+h2{font-size:clamp(29px,4vw,43px);letter-spacing:-.065em;margin:8px 0 0;font-weight:630}
+.note{font-size:12px;color:var(--muted);line-height:1.5;max-width:300px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pillar{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+.pillar .num{font-size:10px;color:var(--accent);font-weight:750}
+.pillar h3{font-size:20px;letter-spacing:-.05em;margin:19px 0 8px}
+.pillar p{font-size:12px;line-height:1.6;color:var(--muted);margin:0}
+.work-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tab{
+  cursor:pointer;text-align:left;background:var(--card);color:var(--ink);
+  border:1px solid var(--line);border-radius:10px;padding:18px;min-height:125px
+}
+.tab[aria-selected="true"]{border-color:var(--accent);background:var(--wash)}
+.tab small{font-size:9px;letter-spacing:.12em;color:var(--accent);font-weight:750}
+.tab strong{display:block;font-size:17px;margin:20px 0 5px;letter-spacing:-.04em}
+.tab span{font-size:11px;color:var(--muted)}
+.case{
+  margin-top:10px;padding:clamp(22px,4vw,36px);
+  background:var(--card);border:1px solid var(--line);border-radius:10px
+}
+.case-top{display:flex;justify-content:space-between;gap:15px;color:var(--accent);font-size:9px;font-weight:750;letter-spacing:.12em}
+.case h3{font-size:clamp(25px,4vw,36px);letter-spacing:-.06em;margin:15px 0 26px}
+.story{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.story h4{font-size:11px;color:var(--accent);margin:0 0 9px}
+.story p{font-size:13px;line-height:1.65;color:var(--muted);margin:0}
+.evidence{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}
+.evidence span{font-size:10px;color:var(--muted);background:var(--wash);padding:8px 10px;border-radius:5px}
+.leadership{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lead{padding:20px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.lead h3{font-size:15px;margin:0 0 8px}
+.lead p{font-size:12px;line-height:1.6;color:var(--muted);margin:0}
+.contact{
+  padding:clamp(25px,5vw,45px);background:var(--card);
+  border:1px solid var(--line);border-radius:12px;
+  display:flex;justify-content:space-between;align-items:center;gap:25px
+}
+.contact h2{max-width:520px}
+.contact p{font-size:14px;line-height:1.6;color:var(--muted);max-width:500px}
+.contact-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px;font-size:12px}
+footer{display:flex;justify-content:space-between;gap:15px;padding:25px 0;color:var(--muted);font-size:10px}
+@media(max-width:680px){
+  .wrap{width:calc(100% - 32px)}
+  header{height:auto;min-height:65px;flex-wrap:wrap;padding:15px 0}
+  nav{gap:14px;flex-wrap:wrap}
+  nav a{font-size:11px}
+  .hero{padding:65px 0 42px}
+  .proof{margin-bottom:45px}
+  .proof article{padding:15px 12px}
+  .proof span{font-size:10px}
+  section{padding:43px 0}
+  .section-head{align-items:flex-start;flex-direction:column}
+  .pillars,.leadership{grid-template-columns:1fr}
+  .work-tabs{grid-template-columns:1fr}
+  .tab{min-height:0;padding:15px}
+  .tab strong{margin:10px 0 4px}
+  .story{grid-template-columns:1fr;gap:20px}
+  .contact{align-items:flex-start;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
-  <header class="wrap topbar">
-    <a class="brand" href="#home" aria-label="David Kago home">David Kago<span aria-hidden="true">.</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<div class="wrap">
 
-  <main>
-    <section class="wrap hero" id="home">
-      <div class="eyebrow">Product · Business · Technology</div>
-      <h1>I make business and technology work as one.</h1>
-      <p class="hero-copy">I turn business needs into clear technical solutions.</p>
-      <a class="guide" href="#work"><span>Take a look around.</span><span class="arrow" aria-hidden="true">↓</span></a>
-    </section>
+<header>
+  <a class="brand" href="#">DAVID KAGO<span style="color:var(--accent)">.</span></a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#leadership">Leadership</a>
+    <a href="mailto:dvmashah@gmail.com">Email ↗</a>
+    <a href="https://www.linkedin.com/in/-davidkago" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <button class="theme" id="theme" type="button">◐ Theme</button>
+  </nav>
+</header>
 
-    <section class="wrap paths" id="work" aria-labelledby="work-title">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">Choose a path</div>
-          <h2 id="work-title">A few ways I can help.</h2>
-          <p class="section-intro">Choose a path to see how I approach problems and turn ideas into working solutions.</p>
-        </div>
-        <a href="https://www.linkedin.com/in/-davidkago" target="_blank" rel="noopener noreferrer">LinkedIn Resume ↗</a>
+<main>
+  <div class="hero">
+    <div class="kicker">PRODUCT · BUSINESS · TECHNOLOGY</div>
+    <h1>I make business and technology work as one.</h1>
+    <p class="intro">
+      I turn complex business needs into clear product decisions,
+      connected systems, and solutions that deliver measurable value.
+    </p>
+    <div class="roles">Product Manager &nbsp;·&nbsp; Product Owner &nbsp;·&nbsp; Senior Business Analyst</div>
+    <div class="actions">
+      <a class="btn solid" href="#work">See the work ↓</a>
+      <a class="btn outline" href="mailto:dvmashah@gmail.com">Let's talk ↗</a>
+    </div>
+    <div class="credentials">
+      <span class="cred">Scrum Alliance · CSPO</span>
+      <span class="cred">IIBA · ECBA</span>
+      <span class="cred">OutSystems · Certified</span>
+    </div>
+  </div>
 
+  <div class="proof" aria-label="Selected business outcomes">
+    <article><strong>3M+</strong><span>Annual interactions across a conversational AI platform</span></article>
+    <article><strong>30%</strong><span>Reported reduction in live-agent calls and escalations</span></article>
+    <article><strong>100+</strong><span>Clinics across a healthcare systems environment</span></article>
+  </div>
+
+  <section id="approach">
+    <div class="section-head">
+      <div><div class="kicker">01 / HOW I WORK</div><h2>From ambiguity to outcomes.</h2></div>
+      <p class="note">I connect the business objective to the technical work and the result.</p>
+    </div>
+    <div class="pillars">
+      <article class="pillar">
+        <span class="num">01</span>
+        <h3>Define</h3>
+        <p>Understand the customer, business problem, constraints, and measure of success. Align people around what matters.</p>
+      </article>
+      <article class="pillar">
+        <span class="num">02</span>
+        <h3>Design</h3>
+        <p>Translate needs into product requirements, workflows, acceptance criteria, and practical solution designs.</p>
+      </article>
+      <article class="pillar">
+        <span class="num">03</span>
+        <h3>Deliver</h3>
+        <p>Work across teams to validate solutions, resolve issues, measure outcomes, and improve what ships.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head">
+      <div><div class="kicker">02 / SELECTED WORK</div><h2>Evidence over adjectives.</h2></div>
+      <p class="note"> Real business contributions.</p>
+    </div>
+
+    <div class="work-tabs" role="tablist" aria-label="Selected projects">
+      <button class="tab" role="tab" aria-selected="true" data-case="ai">
+        <small>01 / CUSTOMER EXPERIENCE</small>
+        <strong>Conversational AI</strong>
+        <span>Automation at scale</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-case="health">
+        <small>02 / SYSTEMS INTEGRATION</small>
+        <strong>Healthcare systems</strong>
+        <span>Data, workflows, integration</span>
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-case="delivery">
+        <small>03 / PRODUCT DELIVERY</small>
+        <strong>Requirements to release</strong>
+        <span>From business need to validation</span>
+      </button>
+    </div>
+
+    <article class="case" aria-live="polite">
+      <div class="case-top"><span id="tag">CUSTOMER EXPERIENCE</span><span>CASE STUDY</span></div>
+      <h3 id="title">Making conversational AI work for customers.</h3>
+      <div class="story">
+        <div><h4>The challenge</h4><p id="problem">Millions of customer interactions created an opportunity to improve automated support, intent recognition, and the customer experience while reducing unnecessary agent escalation.</p></div>
+        <div><h4>My contribution</h4><p id="workText">Analyzed interaction patterns, clarified business requirements, refined conversational flows, supported test scenarios, and worked through production issues with business and technical teams.</p></div>
+        <div><h4>The evidence</h4><p id="result">The platform served more than three million interactions annually. Program outcomes included fewer live-agent calls and lower support costs. My work connected customer intent, requirements, testing, and production feedback.</p></div>
       </div>
-      <div class="grid">
-        <a class="path-card" href="#case-study">
-          <div class="card-top"><span>01 / PRODUCT</span><span class="card-icon" aria-hidden="true">◉</span></div>
-          <h3>Product</h3><p>From problem to product.</p><span class="card-link">See selected work ↗</span>
-        </a>
-        <a class="path-card" href="#case-study">
-          <div class="card-top"><span>02 / ANALYSIS</span><span class="card-icon" aria-hidden="true">⌕</span></div>
-          <h3>Business Analysis</h3><p>From ambiguity to clarity.</p><span class="card-link">See how I work ↗</span>
-        </a>
-        <a class="path-card" href="#case-study">
-          <div class="card-top"><span>03 / SOLUTIONS</span><span class="card-icon" aria-hidden="true">⌘</span></div>
-          <h3>Technical Solutions</h3><p>From business need to system.</p><span class="card-link">Explore a case study ↗</span>
-        </a>
-        <a class="path-card" href="#case-study">
-          <div class="card-top"><span>04 / AI</span><span class="card-icon" aria-hidden="true">✳</span></div>
-          <h3>AI &amp; Automation</h3><p>From capability to application.</p><span class="card-link">Explore a case study ↗</span>
-        </a>
+      <div class="evidence" id="artifacts">
+        <span>Intent analysis</span><span>Conversation flows</span><span>Test scenarios</span><span>Production issue analysis</span>
       </div>
-      
-    </section>
+    </article>
+  </section>
 
-    <section class="case-study" id="case-study" aria-labelledby="case-title">
-      <div class="wrap case-wrap">
-        <div class="case-meta"><span>SELECTED WORK / 01</span></div>
-        <div class="eyebrow">Product · Business Analysis · Delivery</div>
-        <h2 id="case-title">Making conversational AI work for customers.</h2>
-        <p class="case-lead">I worked across product, business analysis, and delivery to help improve conversational AI experiences. My work connected customer needs with technical behavior, testing, and production performance.</p>
+  <section id="leadership">
+    <div class="section-head">
+      <div><div class="kicker">03 / LEADERSHIP</div><h2>People are part of the solution.</h2></div>
+      <p class="note">Clear communication. Shared ownership. Helping others grow.</p>
+    </div>
+    <div class="leadership">
+      <article class="lead">
+        <h3>Cross-functional leadership</h3>
+        <p>Align business and technical teams, clarify trade-offs, facilitate decisions, and keep delivery focused on outcomes.</p>
+      </article>
+      <article class="lead">
+        <h3>Toastmasters</h3>
+        <p>Developing confident public speaking, active listening, and the ability to make complex ideas understandable.</p>
+      </article>
+      <article class="lead">
+        <h3>Youth mentorship</h3>
+        <p>Supporting young people through encouragement, perspective, and practical guidance as they discover their potential.</p>
+      </article>
+    </div>
+  </section>
 
-        <div class="case-blocks" aria-label="Areas of focus">
-          <div class="case-stat"><strong>Requirements</strong><span>Turn business needs into clear, testable expectations.</span></div>
-          <div class="case-stat"><strong>Validation</strong><span>Use test scenarios to check expected behavior.</span></div>
-          <div class="case-stat"><strong>Production issues</strong><span>Help investigate issues and support follow-through.</span></div>
-        </div>
-
-        <div class="case-content">
-          <div>
-            <h3>The challenge</h3>
-            <p>Conversational AI needs to do more than recognize a customer's words. It needs to respond appropriately, handle unexpected behavior, and provide a useful path forward.</p>
-            <p>That takes clear requirements, realistic test scenarios, and a way to investigate issues that appear in production.</p>
-          </div>
-          <div>
-            <h3>What I contributed</h3>
-            <ul>
-              <li>Helped translate business needs into user stories and acceptance criteria.</li>
-              <li>Worked on test scenarios to check whether conversational AI behaved as expected.</li>
-              <li>Helped investigate production issues and coordinate follow-through across business and technical teams.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>How I approached it</h3>
-            <p>I connected three things: what the customer needed, what the system should do, and how the team could verify the result.</p>
-          </div>
-          
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <div class="kicker">04 / NEXT CONVERSATION</div>
+        <h2>Good work starts with a good conversation.</h2>
+        <p>If you're building a product, improving a business process, or connecting technology to customer value, I'd like to hear about it.</p>
+        <div class="contact-links">
+          <a class="link" href="mailto:dvmashah@gmail.com">dvmashah@gmail.com ↗</a>
+          <a class="link" href="https://www.linkedin.com/in/-davidkago" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
       </div>
-    </section>
+      <a class="btn solid" href="mailto:dvmashah@gmail.com">Get in touch ↗</a>
+    </div>
+  </section>
+</main>
 
+<footer>
+  <span>© 2026 David Kago</span>
+</footer>
+</div>
 
+<script>
+const content={
+ ai:{
+  tag:"CUSTOMER EXPERIENCE",
+  title:"Making conversational AI work for customers.",
+  problem:"Millions of customer interactions created an opportunity to improve automated support, intent recognition, and the customer experience while reducing unnecessary agent escalation.",
+  work:"Analyzed interaction patterns, clarified business requirements, refined conversational flows, supported test scenarios, and worked through production issues with business and technical teams.",
+  result:"The platform served more than three million interactions annually. Program outcomes included fewer live-agent calls and lower support costs. My work connected customer intent, requirements, testing, and production feedback.",
+  artifacts:["Intent analysis","Conversation flows","Test scenarios","Production issue analysis"]
+ },
+ health:{
+  tag:"SYSTEMS INTEGRATION",
+  title:"Connecting healthcare workflows and data.",
+  problem:"A complex healthcare environment required systems, data, and business processes to work together across organizations.",
+  work:"Supported requirements and integration analysis, clarified workflows, and worked with HL7/XML data exchange needs during SaaS and organizational change.",
+  result:"Requirements and integration work supported an environment spanning more than 100 clinics. The focus was making business needs understandable and system interactions actionable.",
+  artifacts:["Business requirements","HL7/XML analysis","Workflow mapping","Integration requirements"]
+ },
+ delivery:{
+  tag:"PRODUCT DELIVERY",
+  title:"Making requirements clear enough to build and test.",
+  problem:"Business intent can get lost between stakeholders, requirements, engineering, and testing. Teams need a shared definition of expected behavior.",
+  work:"Translated business needs into requirements and acceptance criteria, connected stories to test scenarios, supported UAT, and helped investigate production defects.",
+  result:"A traceable connection between business need, expected system behavior, test evidence, and delivery decisions.",
+  artifacts:["User stories","Acceptance criteria","Requirements traceability","UAT scenarios"]
+ }
+};
 
-    <section class="contact" id="contact" aria-labelledby="contact-title">
-      <div class="wrap contact-inner">
-        <div>
-          <div class="eyebrow" style="color:#a9c9b6">Contact</div>
-          <h2 id="contact-title">Think I could be a fit? Let's talk.</h2>
-          <p>Interested in working together? I'd love to hear from you.</p>
-          <div class="contact-links">
-            <button type="button" id="email-toggle" aria-expanded="false" aria-controls="email-reveal">Email +</button>
-            <a href="https://www.linkedin.com/in/-davidkago" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-            <!-- Replace https://github.com/ with your personal GitHub profile URL when ready. -->
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-          </div>
-          <div class="email-reveal" id="email-reveal" hidden>
-            <span class="email-address" id="email-address">dvmashah@gmail.com</span>
-            <button class="copy-email" type="button" id="copy-email">Copy email</button>
-            <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+document.querySelectorAll(".tab").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(tab=>tab.setAttribute("aria-selected","false"));
+  button.setAttribute("aria-selected","true");
+  const item=content[button.dataset.case];
+  document.getElementById("tag").textContent=item.tag;
+  document.getElementById("title").textContent=item.title;
+  document.getElementById("problem").textContent=item.problem;
+  document.getElementById("workText").textContent=item.work;
+  document.getElementById("result").textContent=item.result;
+  document.getElementById("artifacts").replaceChildren(
+   ...item.artifacts.map(label=>{
+    const span=document.createElement("span");
+    span.textContent=label;
+    return span;
+   })
+  );
+ });
+});
 
-  <footer class="wrap"><span>© <span id="year">2026</span> David Kago</span></footer>
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const emailToggle = document.getElementById('email-toggle');
-    const emailReveal = document.getElementById('email-reveal');
-    const copyEmailButton = document.getElementById('copy-email');
-    const emailAddress = document.getElementById('email-address');
-    const copyStatus = document.getElementById('copy-status');
-    const email = emailAddress.textContent.trim();
-
-    emailToggle.addEventListener('click', () => {
-      const willShow = emailReveal.hidden;
-      emailReveal.hidden = !willShow;
-      emailToggle.setAttribute('aria-expanded', String(willShow));
-      emailToggle.textContent = willShow ? 'Email −' : 'Email +';
-      if (willShow) copyEmailButton.focus();
-    });
-
-    copyEmailButton.addEventListener('click', async () => {
-      copyStatus.textContent = '';
-
-      try {
-        if (navigator.clipboard && window.isSecureContext) {
-          await navigator.clipboard.writeText(email);
-        } else {
-          // Fallback for local-file previews or browsers without Clipboard API access.
-          const temporaryInput = document.createElement('textarea');
-          temporaryInput.value = email;
-          temporaryInput.setAttribute('readonly', '');
-          temporaryInput.style.position = 'fixed';
-          temporaryInput.style.opacity = '0';
-          document.body.appendChild(temporaryInput);
-          temporaryInput.select();
-          const copied = document.execCommand('copy');
-          temporaryInput.remove();
-          if (!copied) throw new Error('Clipboard copy was not available.');
-        }
-        copyStatus.textContent = 'Email copied to clipboard.';
-        copyEmailButton.textContent = 'Copied ✓';
-      } catch (error) {
-        copyStatus.textContent = 'Copy was blocked by your browser. Select the email above and copy it manually.';
-        copyEmailButton.textContent = 'Try again';
-      }
-    });
-  </script>
+const themeButton=document.getElementById("theme");
+themeButton.addEventListener("click",()=>{
+ const dark=document.documentElement.dataset.theme!=="dark";
+ document.documentElement.dataset.theme=dark?"dark":"";
+ themeButton.textContent=dark?"☼ Light":"◐ Theme";
+ document.querySelector('meta[name="theme-color"]').content=dark?"#111815":"#f6f6f2";
+});
+</script>
 </body>
 </html>
